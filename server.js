@@ -1,7 +1,11 @@
 const express = require("express");
-const PORT = 5050;
 const app = express();
-require('dotenv').config()
+const session = require("express-session");
+const path = require("path");
+require("dotenv").config();
+const PORT = process.env.PORT || 5050;
+
+const db = require("./models");
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
@@ -10,6 +14,10 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`listening on: http://localhost:${PORT}`);
-  });
+// console.log(process.env.PASSWORD);
+
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () =>
+    console.log(`Listening on port https://localhost:${PORT}`)
+  );
+});
