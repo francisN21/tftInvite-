@@ -20,7 +20,7 @@ module.exports = (app) => {
     res.json(success);
   });
   app.delete("/api/friend/unfriend", (req, res) => {
-    console.log("ive been hit");
+    console.log(req);
     res.json(success);
   });
 

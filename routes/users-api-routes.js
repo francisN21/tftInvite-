@@ -39,7 +39,33 @@ module.exports = (app) => {
     try {
       const createUser = req.body;
       const showusers = await db.Users.findAll({});
-
+      res.json(showusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(error);
+    }
+  });
+  app.delete("/api/user/:user_id", async (req, res) => {
+    try {
+      const showusers = await db.Users.destroy({
+        where: { user_id: req.params.user_id },
+      });
+      res.json(showusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(error);
+    }
+  });
+  app.put("/api/user/username", async (req, res) => {
+    try {
+      const showusers = await db.Users.update(
+        {
+          username: req.body.username,
+        },
+        {
+          where: { user_id: req.body.user_id },
+        }
+      );
       res.json(showusers);
     } catch (err) {
       console.log("lol");
