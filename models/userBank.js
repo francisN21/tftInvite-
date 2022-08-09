@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Friends = sequelize.define("Users", {
+  const Users = sequelize.define("Users", {
     user_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -11,6 +11,5 @@ module.exports = (sequelize, DataTypes) => {
     password: { type: DataTypes.STRING, allowNull: false },
     birthday: { type: DataTypes.DATEONLY, allowNull: false },
   });
-
-  return Friends;
+  return Users;
 };

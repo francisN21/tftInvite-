@@ -1,16 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const Friends = sequelize.define("Users", {
-    user_id: {
+  const Invite = sequelize.define("Users", {
+    invite_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
     },
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
+    user_id: { type: DataTypes.INTEGER, allowNull: false },
+    title: { type: DataTypes.STRING(50), allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false },
+    timestamps: true,
+    createdAt: true,
     password: { type: DataTypes.STRING, allowNull: false },
     birthday: { type: DataTypes.DATEONLY, allowNull: false },
   });
-
-  return Friends;
+  return Invite;
 };
