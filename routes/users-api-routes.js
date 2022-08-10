@@ -21,8 +21,6 @@ module.exports = (app) => {
   ];
   app.post("/api/user/new", async (req, res) => {
     try {
-      const createUser = req.body;
-      console.log(req.body);
       await db.Users.create({
         username: req.body.username,
         email: req.body.email,
@@ -37,7 +35,6 @@ module.exports = (app) => {
   });
   app.get("/api/user/show", async (req, res) => {
     try {
-      const createUser = req.body;
       const showusers = await db.Users.findAll({});
       res.json(showusers);
     } catch (err) {
@@ -47,10 +44,10 @@ module.exports = (app) => {
   });
   app.delete("/api/user/:user_id", async (req, res) => {
     try {
-      const showusers = await db.Users.destroy({
+      const deleteusers = await db.Users.destroy({
         where: { user_id: req.params.user_id },
       });
-      res.json(showusers);
+      res.json(deleteusers);
     } catch (err) {
       console.log("lol");
       res.json(error);
@@ -58,7 +55,7 @@ module.exports = (app) => {
   });
   app.put("/api/user/username", async (req, res) => {
     try {
-      const showusers = await db.Users.update(
+      const updateuser = await db.Users.update(
         {
           username: req.body.username,
         },
@@ -66,7 +63,7 @@ module.exports = (app) => {
           where: { user_id: req.body.user_id },
         }
       );
-      res.json(showusers);
+      res.json(updateuser);
     } catch (err) {
       console.log("lol");
       res.json(error);
