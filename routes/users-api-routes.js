@@ -21,8 +21,11 @@ module.exports = (app) => {
   ];
   app.post("/api/user/new", async (req, res) => {
     try {
-      await db.Users.create({
+      console.log(req.body);
+      await db.User.create({
         username: req.body.username,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
       });
@@ -35,7 +38,7 @@ module.exports = (app) => {
   });
   app.get("/api/user/show", async (req, res) => {
     try {
-      const showusers = await db.Users.findAll({});
+      const showusers = await db.User.findAll({});
       res.json(showusers);
     } catch (err) {
       console.log("lol");
@@ -53,9 +56,9 @@ module.exports = (app) => {
       res.json(error);
     }
   });
-  app.put("/api/user/username", async (req, res) => {
+  app.put("/api/user/update", async (req, res) => {
     try {
-      const updateuser = await db.Users.update(
+      const updateuser = await db.User.update(
         {
           username: req.body.username,
         },
