@@ -22,7 +22,7 @@ module.exports = (app) => {
   app.post("/api/user/new", async (req, res) => {
     try {
       console.log(req.body);
-      await db.User.create({
+      await db.Users.create({
         username: req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -38,7 +38,7 @@ module.exports = (app) => {
   });
   app.get("/api/user/show", async (req, res) => {
     try {
-      const showusers = await db.User.findAll({});
+      const showusers = await db.Users.findAll({});
       res.json(showusers);
     } catch (err) {
       console.log("lol");
@@ -58,7 +58,7 @@ module.exports = (app) => {
   });
   app.put("/api/user/update", async (req, res) => {
     try {
-      const updateuser = await db.User.update(
+      const updateuser = await db.Users.update(
         {
           username: req.body.username,
         },

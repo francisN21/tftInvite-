@@ -96,8 +96,34 @@ VALUES
 ("Carlos", "Lorenzo", 'M')
 ;
 
+INSERT INTO Users (username, first_name, last_name, email, password)
+VALUES
+("nate1234", "Nathan", "Arcilla", "testemail1@email.com", 'password'),
+("mayne", "Charmaine", "Tayer", "testemail2@email.com", 'password'),
+("Uzer123", "anonymous", "hidden", "testemail3@email.com", 'password'),
+("bobapro", "Angeline", "Rones", "testemail4@email.com", 'password'),
+("buckweat", "Kriston", "Rones", "testemail5@email.com", 'password'),
+("Serbesa", "Francisco", "Rones", "testemail6@email.com", 'password'),
+("Wasp", "Jenna", "Sabra", "testemail7@email.com", 'password'),
+("exile", "Rajee", "Sabra", "testemail8@email.com", 'password'),
+("byul", "Nica", "Rones", "testemail9@email.com", 'password'),
+("francesro", "Chinky", "Rones", "testemail0@email.com", 'password'),
+("kuyamarv_", "Marvin", "Plaza", "testemail11@email.com", 'password'),
+("panlaqui", "Merrick", "Panlaqui", "testemail12@email.com", 'password'),
+("landonbaker1", "Landon", "Baker", "testemail13@email.com", 'password'),
+("jpguese", "Janine", "Guese", "testemail14@email.com", 'password'),
+("juan__rambo", "Juam Miguel", "Infantado", "testemail15@email.com", 'password'),
+("sisgonz", "Roxanne", "Gonzales", "testemail16@email.com", 'password'),
+("darlene.sanpedro", "Darlene", "San Pedro", "testemail17@email.com", 'password'),
+("ohgabbey", "Gabrielle", "Floreska", "testemail18@email.com", 'password'),
+("bryanTerstenyak", "Bryan", "Terstenyak", "testemail19@email.com", 'password'),
+("neenine.sangz", "Janine", "Terstenyak", "testemail20@email.com", 'password')
+;
+
 Select * FROM Users;
 Select * FROM Friends;
+
+Select Users.username AS Users, Friends.friend_id AS Friend, Friends.isMutual AS isFriend FROM Users INNER JOIN Friends ON Users.user_id = Friends.user_id;
 
 INSERT INTO invite (user_id, title, date_created) VALUES (1, "MAR10", 'timestamp()');
 
