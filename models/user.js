@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       user_id: {
         type: DataTypes.INTEGER,
+
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
@@ -12,13 +13,24 @@ module.exports = (sequelize, DataTypes) => {
       email: { type: DataTypes.STRING(100), allowNull: false },
       first_name: { type: DataTypes.STRING(50), allowNull: true },
       last_name: { type: DataTypes.STRING(50), allowNull: true },
-      gender: {
-        type: DataTypes.ENUM("M", "F", "Other"),
-      },
-      // createdAt: false,
-      // updatedAt: false,
+      // gender: {
+      //   type: DataTypes.ENUM("M", "F", "Other"),
+      // },
       password: { type: DataTypes.STRING(25), allowNull: false },
       // birthday: { type: DataTypes.DATEONLY, allowNull: false },
+
+      createdAt: {
+        field: "created_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        field: "updated_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
     },
     {
       timestamps: true,
@@ -37,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
   Users.associate = (models) => {
-    Users.hasMany(models.Invite, {
+    Users.hasMany(models.Group, {
       onDelete: "cascade",
     });
   };

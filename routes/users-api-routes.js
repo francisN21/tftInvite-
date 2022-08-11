@@ -22,7 +22,7 @@ module.exports = (app) => {
   app.post("/api/user/new", async (req, res) => {
     try {
       console.log(req.body);
-      await db.Users.create({
+      await db.User.create({
         username: req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -33,21 +33,21 @@ module.exports = (app) => {
       res.json(success);
     } catch (err) {
       console.log("lol");
-      res.json(error);
+      res.json(err);
     }
   });
   app.get("/api/user/show", async (req, res) => {
     try {
-      const showusers = await db.Users.findAll({});
+      const showusers = await db.User.findAll({});
       res.json(showusers);
     } catch (err) {
       console.log("lol");
-      res.json(error);
+      res.json(err);
     }
   });
   app.delete("/api/user/:user_id", async (req, res) => {
     try {
-      const deleteusers = await db.Users.destroy({
+      const deleteusers = await db.User.destroy({
         where: { user_id: req.params.user_id },
       });
       res.json(deleteusers);
@@ -58,7 +58,7 @@ module.exports = (app) => {
   });
   app.put("/api/user/update", async (req, res) => {
     try {
-      const updateuser = await db.Users.update(
+      const updateuser = await db.User.update(
         {
           username: req.body.username,
         },

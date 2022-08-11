@@ -1,17 +1,35 @@
 module.exports = (sequelize, DataTypes) => {
-  const Friends = sequelize.define("Friend", {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
+  const Friends = sequelize.define(
+    "Friend",
+    {
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      friend_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      isMutual: { type: DataTypes.BOOLEAN, defaultValue: false },
+      createdAt: {
+        field: "created_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        field: "updated_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
     },
-    friend_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-    },
-    isMutual: { type: DataTypes.BOOLEAN, defaultValue: false },
-  });
+    {
+      timestamps: true,
+    }
+  );
   Friends.associate = (models) => {
     Friends.belongsTo(models.User, {
       targetKey: "user_id",

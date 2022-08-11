@@ -20,31 +20,31 @@ module.exports = (app) => {
     },
   ];
 
-  app.post("/api/friend/add", async(req, res) => {
+  app.post("/api/friend/add", async (req, res) => {
     try {
       console.log(req.body);
 
       await db.Friend.create({
         user_id: req.body.user_id,
-        friend_id: req.body.friend_id
-      })
+        friend_id: req.body.friend_id,
+      });
       res.json(success);
     } catch (error) {
       res.json(error);
     }
   });
-  app.get("/api/friend/load_friends", async(req, res) => {
+  app.get("/api/friend/load_friends", async (req, res) => {
     try {
       console.log("ive been hit");
       await db.Friend.findAll({
-        where: {}
-      })
+        where: {},
+      });
       res.json(success);
     } catch (error) {
       res.json(errormssg);
     }
   });
-  app.get("/api/friend/friend_requests", async(req, res) => {
+  app.get("/api/friend/friend_requests", async (req, res) => {
     try {
       console.log("ive been hit");
       res.json(success);
@@ -52,7 +52,7 @@ module.exports = (app) => {
       res.json(errormssg);
     }
   });
-  app.delete("/api/friend/unfriend", async(req, res) => {
+  app.delete("/api/friend/unfriend", async (req, res) => {
     try {
       console.log("ive been hit");
       res.json(success);
