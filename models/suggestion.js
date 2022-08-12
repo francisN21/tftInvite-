@@ -11,8 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
+    suggestedby_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
     hasMet: { type: DataTypes.BOOLEAN, defaultValue: false },
     text: { type: DataTypes.TEXT, allowNull: true },
+    isConsidered: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isApproved: { type: DataTypes.BOOLEAN, defaultValue: false },
     //   birthday: { type: DataTypes.DATEONLY, allowNull: false },
   });
   Suggestion.associate = (models) => {

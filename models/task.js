@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
-    text: { type: DataTypes.TEXT, allowNull: true },
-
+    task: { type: DataTypes.STRING, allowNull: false },
+    isCompleted: { type: DataTypes.BOOLEAN, defaultValue: false },
     //   birthday: { type: DataTypes.DATEONLY, allowNull: false },
   });
   Task.associate = (models) => {

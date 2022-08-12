@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     hasMet: { type: DataTypes.BOOLEAN, defaultValue: false },
+    title: { type: DataTypes.TEXT, allowNull: true },
     text: { type: DataTypes.TEXT, allowNull: true },
     //   birthday: { type: DataTypes.DATEONLY, allowNull: false },
   });

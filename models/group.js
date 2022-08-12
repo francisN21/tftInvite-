@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       taget_date: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
       description: { type: DataTypes.TEXT, allowNull: false },
       isCompleted: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isPrivate: { type: DataTypes.BOOLEAN, defaultValue: false },
       isMainAdmin: { type: DataTypes.INTEGER },
       createdAt: {
         field: "created_at",

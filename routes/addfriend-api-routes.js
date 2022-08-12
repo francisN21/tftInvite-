@@ -52,6 +52,15 @@ module.exports = (app) => {
       res.json(errormssg);
     }
   });
+  app.get("/api/friend/accept_friend_requests", async (req, res) => {
+    try {
+      console.log("ive been hit");
+      res.json(success);
+    } catch (error) {
+      res.json(errormssg);
+    }
+  });
+
   app.delete("/api/friend/unfriend", async (req, res) => {
     try {
       console.log("ive been hit");
