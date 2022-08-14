@@ -36,10 +36,12 @@ module.exports = (app) => {
   app.get("/api/friend/load_friends", async (req, res) => {
     try {
       console.log("ive been hit");
-      await db.Friend.findAll({
-        where: {},
+      const showfriends = await db.Friend.findAll({
+        where: {user_id: req.body.user_id,
+          isMutual: true
+        },
       });
-      res.json(success);
+      res.json(showfriends);
     } catch (error) {
       res.json(errormssg);
     }
@@ -47,15 +49,31 @@ module.exports = (app) => {
   app.get("/api/friend/friend_requests", async (req, res) => {
     try {
       console.log("ive been hit");
-      res.json(success);
+      const showfriendreq = await db.Friend.findAll({
+        where: {friend_id: req.body.user_id,
+          isMutual: false
+        },
+      });
+      res.json(showfriendreq);
     } catch (error) {
       res.json(errormssg);
     }
   });
-  app.get("/api/friend/accept_friend_requests", async (req, res) => {
+  app.put("/api/friend/accept_friend_requests", async (req, res) => {
     try {
       console.log("ive been hit");
-      res.json(success);
+      const acceptrequest = await db.Friend.update(
+        {
+          isMutual: true
+        },
+        {
+        where: {
+          user_id: req.body.user_id,
+          friend_id: req.body.friend_id
+        },
+        }
+      );
+      res.json(acceptrequest);
     } catch (error) {
       res.json(errormssg);
     }
@@ -64,6 +82,13 @@ module.exports = (app) => {
   app.delete("/api/friend/unfriend", async (req, res) => {
     try {
       console.log("ive been hit");
+      const unfriend = await db.Friend.destroy({
+        where: {
+          user_id: req.body.user_id,
+          friend_id: req.body.friend_id
+        },
+      });
+      res.json(unfriend);;
       res.json(success);
     } catch (error) {
       res.json(errormssg);

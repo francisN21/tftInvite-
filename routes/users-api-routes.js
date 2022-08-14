@@ -45,6 +45,17 @@ module.exports = (app) => {
       res.json(err);
     }
   });
+  app.get("/api/user/getuserdetails", async (req, res) => {
+    try {
+      const showusers = await db.User.findAll({
+        where: { user_id: req.body.user_id}
+      });
+      res.json(showusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(err);
+    }
+  });
   app.delete("/api/user/:user_id", async (req, res) => {
     try {
       const deleteusers = await db.User.destroy({

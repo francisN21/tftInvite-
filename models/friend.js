@@ -34,13 +34,26 @@ module.exports = (sequelize, DataTypes) => {
     Friends.belongsTo(models.User, {
       targetKey: "user_id",
       foreignKey: "user_id",
+      onDelete: "cascade",
     });
   };
   Friends.associate = (models) => {
     Friends.belongsTo(models.User, {
       targetKey: "user_id",
       foreignKey: "friend_id",
+      onDelete: "cascade"
     });
   };
+//   Friends.associate = (models) => {
+//   Friends.hasMany(models.Users, {
+//     onDelete: "cascade",
+//   });
+// };
   return Friends;
 };
+
+// Friends.associate = (models) => {
+//   Users.hasMany(models.Friend, {
+//     onDelete: "cascade",
+//   });
+// };
