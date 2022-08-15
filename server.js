@@ -5,6 +5,7 @@ const app = express();
 
 const friendlyRouter = require("./routes/addfriend-api-routes.js");
 const users = require("./routes/users-api-routes.js");
+const group = require("./routes/group-api-routes.js");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 5050;
@@ -25,6 +26,7 @@ app.use(express.static("public"));
 // Invoke routes
 friendlyRouter(app);
 users(app);
+group(app);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () =>
