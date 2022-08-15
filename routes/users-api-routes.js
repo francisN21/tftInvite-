@@ -36,7 +36,7 @@ module.exports = (app) => {
       res.json(err);
     }
   });
-  app.get("/api/user/show", async (req, res) => {
+  app.get("/api/user/isFriend", async (req, res) => {
     try {
       const showusers = await db.User.findAll({});
       res.json(showusers);
@@ -45,10 +45,10 @@ module.exports = (app) => {
       res.json(err);
     }
   });
-  app.get("/api/user/getuserdetails", async (req, res) => {
+  app.get("/api/user/friendrequest", async (req, res) => {
     try {
       const showusers = await db.User.findAll({
-        where: { user_id: req.body.user_id}
+        where: { user_id: req.body.user_id },
       });
       res.json(showusers);
     } catch (err) {

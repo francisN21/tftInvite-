@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
+    isCoAdmin: { type: DataTypes.BOOLEAN, defaultValue: false },
     hasAccepted: { type: DataTypes.BOOLEAN, defaultValue: false },
   });
   Participant.associate = (models) => {
