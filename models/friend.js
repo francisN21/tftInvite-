@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
+      // needs to be accepted
       isMutual: { type: DataTypes.BOOLEAN, defaultValue: false },
       createdAt: {
         field: "created_at",
@@ -41,14 +42,14 @@ module.exports = (sequelize, DataTypes) => {
     Friends.belongsTo(models.User, {
       targetKey: "user_id",
       foreignKey: "friend_id",
-      onDelete: "cascade"
+      onDelete: "cascade",
     });
   };
-//   Friends.associate = (models) => {
-//   Friends.hasMany(models.Users, {
-//     onDelete: "cascade",
-//   });
-// };
+  //   Friends.associate = (models) => {
+  //   Friends.hasMany(models.Users, {
+  //     onDelete: "cascade",
+  //   });
+  // };
   return Friends;
 };
 

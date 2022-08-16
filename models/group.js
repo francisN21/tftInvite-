@@ -8,12 +8,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
+      // Only one main moderator of the group in reference to the user who created it
+      isCreator_id: { type: DataTypes.INTEGER },
+      areParticipants_id: { type: DataTypes.INTEGER },
       title: { type: DataTypes.STRING, allowNull: false },
-      taget_date: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-      description: { type: DataTypes.TEXT, allowNull: false },
+      taget_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: DataTypes.NOW,
+      },
+      description: { type: DataTypes.TEXT, allowNull: true },
       isCompleted: { type: DataTypes.BOOLEAN, defaultValue: false },
       isPrivate: { type: DataTypes.BOOLEAN, defaultValue: false },
-      isMainAdmin: { type: DataTypes.INTEGER },
+
       createdAt: {
         field: "created_at",
         type: DataTypes.DATE,
@@ -32,12 +39,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Group.associate = (models) => {
-    Group.hasMany(models.User, {
+    Group.hasOne(models.User, {
+      targetKey: "user_id",
+      foreignKey: "isCreator_id",
       onDelete: "cascade",
     });
   };
+
   Group.associate = (models) => {
     Group.hasMany(models.Participant, {
+      targetKey: "group_id",
+      foreignKey: "areParticipants_id",
       onDelete: "cascade",
     });
   };

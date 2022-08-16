@@ -1,15 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
-  const Post = sequelize.define("Post", {
-    user_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true,
+  const Post = sequelize.define(
+    "Post",
+    {
+      post_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+      },
+      // post owner
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+
+      text: { type: DataTypes.TEXT, allowNull: true },
+      // has many comments
+      comment_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      createdAt: {
+        field: "created_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        field: "updated_at",
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
     },
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    email: { type: DataTypes.STRING, allowNull: false },
-    password: { type: DataTypes.STRING, allowNull: false },
-    // birthday: { type: DataTypes.DATEONLY, allowNull: false },
-  });
+    {
+      timestamps: true,
+    }
+  );
   return Post;
 };

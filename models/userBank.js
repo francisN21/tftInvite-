@@ -1,15 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const UserBank = sequelize.define("UserBank", {
-    user_id: {
+    userbank_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
     },
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    email: { type: DataTypes.STRING, allowNull: false },
-    password: { type: DataTypes.STRING, allowNull: false },
-    birthday: { type: DataTypes.DATEONLY, allowNull: false },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+    cashamount: { type: DataTypes.INTERGER, defaultValue: 0 },
   });
   return UserBank;
 };
