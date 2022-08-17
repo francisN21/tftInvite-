@@ -19,6 +19,7 @@ module.exports = (app) => {
       },
     },
   ];
+  // create user no auth yet
   app.post("/api/user/new", async (req, res) => {
     try {
       console.log(req.body);
@@ -36,6 +37,7 @@ module.exports = (app) => {
       res.json(err);
     }
   });
+  // checks if the friend request is accepted(isMutal = true)
   app.get("/api/user/isFriend", async (req, res) => {
     try {
       const showusers = await db.User.findAll({});
@@ -45,6 +47,7 @@ module.exports = (app) => {
       res.json(err);
     }
   });
+  // checks all friend requests (isMutual = false)
   app.get("/api/user/friendrequest", async (req, res) => {
     try {
       const showusers = await db.User.findAll({
@@ -56,6 +59,7 @@ module.exports = (app) => {
       res.json(err);
     }
   });
+  // delete account / just for testing delete
   app.delete("/api/user/:user_id", async (req, res) => {
     try {
       const deleteusers = await db.User.destroy({
@@ -67,6 +71,7 @@ module.exports = (app) => {
       res.json(error);
     }
   });
+  // updates username for the moment
   app.put("/api/user/update", async (req, res) => {
     try {
       const updateuser = await db.User.update(
