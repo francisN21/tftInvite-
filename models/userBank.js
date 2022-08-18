@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
-    cashamount: { type: DataTypes.INTERGER, defaultValue: 0 },
+    cashamount: { type: DataTypes.INTEGER, defaultValue: 0 },
   });
   return UserBank;
 };
