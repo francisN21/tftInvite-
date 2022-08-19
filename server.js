@@ -24,24 +24,6 @@ app.use(express.static("public"));
 
 // console.log(process.env.PASSWORD);
 
-app.use("/", async (req, res) => {
-  const success = [
-    {
-      msg: "Success",
-      status: 200,
-      data: {
-        active: true,
-      },
-    },
-  ];
-  try {
-    res.send(success);
-  } catch (err) {
-    console.log("lol");
-    res.json(err);
-  }
-});
-
 // Invoke routes
 friendlyRouter(app);
 users(app);

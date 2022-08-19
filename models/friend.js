@@ -2,18 +2,19 @@ module.exports = (sequelize, DataTypes) => {
   const Friends = sequelize.define(
     "Friend",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      friend_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-      },
       // needs to be accepted
-      isMutual: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isFriend: { type: DataTypes.BOOLEAN, defaultValue: false },
+      isBlocked: { type: DataTypes.BOOLEAN, defaultValue: false },
       createdAt: {
         field: "created_at",
         type: DataTypes.DATE,
@@ -40,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Friends.associate = (models) => {
     Friends.belongsTo(models.User, {
-      targetKey: "user_id",
-      foreignKey: "friend_id",
+      targetKey: "id",
+      foreignKey: "user_id",
       onDelete: "cascade",
     });
   };

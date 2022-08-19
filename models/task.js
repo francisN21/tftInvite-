@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
+    // tasks belongs to one user(id)
     assignedTo_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Task.associate = (models) => {
     Task.belongsTo(models.User, {
-      targetKey: "user_id",
+      targetKey: "id",
       foreignKey: "assignedTo_id",
     });
   };
