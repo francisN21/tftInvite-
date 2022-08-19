@@ -33,13 +33,13 @@ module.exports = (app) => {
       res.json(error);
     }
   });
+
   app.get("/api/friend/load_friends", async (req, res) => {
     try {
-      console.log("ive been hit");
+      console.log(req.body.user_id);
       const showfriends = await db.Friend.findAll({
-        where: {user_id: req.body.user_id,
-          isMutual: true
-        },
+        where: { user_id: req.body.user_id, isFriend: true },
+        where: { friend_id: req.body.user_id, isFriend: true },
       });
       res.json(showfriends);
     } catch (error) {
@@ -50,9 +50,7 @@ module.exports = (app) => {
     try {
       console.log("ive been hit");
       const showfriendreq = await db.Friend.findAll({
-        where: {friend_id: req.body.user_id,
-          isMutual: false
-        },
+        where: { user_id: req.body.id, isFriend: false },
       });
       res.json(showfriendreq);
     } catch (error) {
@@ -64,16 +62,31 @@ module.exports = (app) => {
       console.log("ive been hit");
       const acceptrequest = await db.Friend.update(
         {
-          isMutual: true
+          isFriend: true,
         },
         {
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id
-        },
+          where: {
+            user_id: req.body.user_id,
+            friend_id: req.body.friend_id,
+          },
         }
       );
+      // res.send(`acceptrequest ${req.body.user_id}`);
       res.json(acceptrequest);
+    } catch (error) {
+      res.json(errormssg);
+    }
+  });
+  app.delete("/api/friend/reject_friend_requests", async (req, res) => {
+    try {
+      console.log("ive been hit");
+      const deleterequest = await db.Friend.destroy({
+        where: {
+          user_id: req.body.user_id,
+          friend_id: req.body.friend_id,
+        },
+      });
+      res.json(deleterequest);
     } catch (error) {
       res.json(errormssg);
     }
@@ -85,10 +98,10 @@ module.exports = (app) => {
       const unfriend = await db.Friend.destroy({
         where: {
           user_id: req.body.user_id,
-          friend_id: req.body.friend_id
+          friend_id: req.body.friend_id,
         },
       });
-      res.json(unfriend);;
+      res.json(unfriend);
       res.json(success);
     } catch (error) {
       res.json(errormssg);

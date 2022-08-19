@@ -49,7 +49,7 @@ module.exports = (app) => {
       console.log("ive been hit");
       const showfriendreq = await db.Friend.findAll({
         where: { friend_id: req.body.user_id, isMutual: false },
-      });
+      }).then();
       res.json(showfriendreq);
     } catch (error) {
       res.json(errormssg);
