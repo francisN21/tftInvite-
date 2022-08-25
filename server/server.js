@@ -17,7 +17,11 @@ const db = require("./models");
 app.use(express.static("public"));
 
 // needs the JSON
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.json());
 
 app.use(express.static("public"));

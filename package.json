@@ -2,6 +2,9 @@
     "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "concurrently \"cd ../server nodemon server.js\" \"cd ../../client npm run dev \""
+    "dev": "concurrently \"cd ./server/ nodemon server.js\" \"cd ../../client npm run dev \""
+  },
+  "dependencies": {
+    "concurrently": "^7.3.0"
   }
 }
