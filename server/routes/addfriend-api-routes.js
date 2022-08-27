@@ -6,7 +6,7 @@ const {
   findLog,
   deleteLog,
   editLog,
-} = require("../controllers/logController");
+} = require("../controllers/test");
 
 module.exports = (app) => {
   const success = [

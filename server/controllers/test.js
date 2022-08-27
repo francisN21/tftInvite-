@@ -25,8 +25,8 @@ module.exports = {
       console.log(req.body);
 
       await db.Friend.create({
+        id: req.body.id,
         user_id: req.body.user_id,
-        friend_id: req.body.friend_id,
       });
       res.json(success);
     } catch (error) {
