@@ -1,5 +1,13 @@
 const db = require("../models");
 
+const {
+  addUser,
+  getUserLogs,
+  findLog,
+  deleteLog,
+  editLog,
+} = require("../controllers/logController");
+
 module.exports = (app) => {
   const success = [
     {
@@ -20,19 +28,7 @@ module.exports = (app) => {
     },
   ];
 
-  app.post("/api/friend/add", async (req, res) => {
-    try {
-      console.log(req.body);
-
-      await db.Friend.create({
-        user_id: req.body.user_id,
-        friend_id: req.body.friend_id,
-      });
-      res.json(success);
-    } catch (error) {
-      res.json(error);
-    }
-  });
+  app.post("/api/friend/add", addUser);
 
   app.get("/api/friend/load_friends", async (req, res) => {
     try {
@@ -107,7 +103,6 @@ module.exports = (app) => {
       res.json(errormssg);
     }
   });
-
   // will add if needed
   //   app.update("/api/friend/", (req, res) => {
   //     console.log("ive been hit");
