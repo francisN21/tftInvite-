@@ -2,11 +2,12 @@ const db = require("../models");
 
 const {
   addUser,
-  getUserLogs,
-  findLog,
-  deleteLog,
-  editLog,
-} = require("../controllers/test");
+  loadFriends,
+  friendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  unfriend,
+} = require("../controller/addfriend-controller");
 
 module.exports = (app) => {
   const success = [
@@ -30,79 +31,15 @@ module.exports = (app) => {
 
   app.post("/api/friend/add", addUser);
 
-  app.get("/api/friend/load_friends", async (req, res) => {
-    try {
-      console.log(req.body.user_id);
-      const showfriends = await db.Friend.findAll({
-        where: { user_id: req.body.user_id, isFriend: true },
-        where: { friend_id: req.body.user_id, isFriend: true },
-      });
-      res.json(showfriends);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.get("/api/friend/friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const showfriendreq = await db.Friend.findAll({
-        where: { user_id: req.body.id, isFriend: false },
-      });
-      res.json(showfriendreq);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.put("/api/friend/accept_friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const acceptrequest = await db.Friend.update(
-        {
-          isFriend: true,
-        },
-        {
-          where: {
-            user_id: req.body.user_id,
-            friend_id: req.body.friend_id,
-          },
-        }
-      );
-      // res.send(`acceptrequest ${req.body.user_id}`);
-      res.json(acceptrequest);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.delete("/api/friend/reject_friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const deleterequest = await db.Friend.destroy({
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
-        },
-      });
-      res.json(deleterequest);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.get("/api/friend/load_friends", loadFriends);
 
-  app.delete("/api/friend/unfriend", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const unfriend = await db.Friend.destroy({
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
-        },
-      });
-      res.json(unfriend);
-      res.json(success);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.get("/api/friend/friend_requests", friendRequest);
+
+  app.put("/api/friend/accept_friend_requests", acceptFriendRequest);
+
+  app.delete("/api/friend/reject_friend_requests", rejectFriendRequest);
+
+  app.delete("/api/friend/unfriend", unfriend);
   // will add if needed
   //   app.update("/api/friend/", (req, res) => {
   //     console.log("ive been hit");
