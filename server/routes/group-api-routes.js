@@ -1,25 +1,14 @@
 const db = require("../models");
 
-module.exports = (app) => {
-  const success = [
-    {
-      msg: "success",
-      status: 200,
-      data: {
-        active: true,
-      },
-    },
-  ];
-  const errormssg = [
-    {
-      msg: "error",
-      status: 400,
-      data: {
-        active: true,
-      },
-    },
-  ];
+const {
+  newGoal,
+  changeDate,
+  isMet,
+  updateText,
+  placeHolder,
+} = require("../controller/group-controller");
 
+module.exports = (app) => {
   app.post("/api/group/create", async (req, res) => {
     try {
       console.log(req.body);
