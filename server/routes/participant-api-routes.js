@@ -1,95 +1,20 @@
 const db = require("../models");
 
+const {
+  newParticipant,
+  isAccepted,
+  kickParticipant,
+  iscoAdmin,
+} = require("../controller/participant-controller");
+
 module.exports = (app) => {
-  const success = [
-    {
-      msg: "success",
-      status: 200,
-      data: {
-        active: true,
-      },
-    },
-  ];
-  const errormssg = [
-    {
-      msg: "error",
-      status: 400,
-      data: {
-        active: true,
-      },
-    },
-  ];
+  app.post("/api/participant/new-participant", newParticipant);
 
-  app.post("/api/participant/add", async (req, res) => {
-    try {
-      console.log(req.body);
+  app.put("/api/participant/is-accepted", isAccepted);
 
-      await db.Friend.create({
-        user_id: req.body.user_id,
-        friend_id: req.body.friend_id,
-      });
-      res.json(success);
-    } catch (error) {
-      res.json(error);
-    }
-  });
-  app.get("/api/participant/load_friends", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const showfriends = await db.Friend.findAll({
-        where: { user_id: req.body.user_id, isMutual: true },
-      });
-      res.json(showfriends);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.get("/api/participant/friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const showfriendreq = await db.Friend.findAll({
-        where: { friend_id: req.body.user_id, isMutual: false },
-      });
-      res.json(showfriendreq);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.put("/api/participant/accept_friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const acceptrequest = await db.Friend.update(
-        {
-          isMutual: true,
-        },
-        {
-          where: {
-            user_id: req.body.user_id,
-            friend_id: req.body.friend_id,
-          },
-        }
-      );
-      res.json(acceptrequest);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.delete("/api/participant/kick-participant", kickParticipant);
 
-  app.delete("/api/participant/unfriend", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const unfriend = await db.Friend.destroy({
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
-        },
-      });
-      res.json(unfriend);
-      res.json(success);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.put("/api/participant/is-coAdmin", iscoAdmin);
 
   // will add if needed
   // app.update("/api/friend/", (req, res) => {
