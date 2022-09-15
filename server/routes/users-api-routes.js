@@ -1,24 +1,14 @@
 const db = require("../models");
 
+const {
+  createUser,
+  isFriend,
+  showFriendReq,
+  deleteUser,
+  updateUser,
+} = require("../controller/user-controller");
+
 module.exports = (app) => {
-  const success = [
-    {
-      msg: "success",
-      status: 200,
-      data: {
-        active: true,
-      },
-    },
-  ];
-  const error = [
-    {
-      msg: "error",
-      status: 400,
-      data: {
-        active: true,
-      },
-    },
-  ];
   // create user no auth yet
   app.post("/api/user/new", async (req, res) => {
     try {
@@ -88,4 +78,8 @@ module.exports = (app) => {
       res.json(error);
     }
   });
+
+  // ======= Notes++ ======= //
+  // Need to create routes for showing groups created and groups that the user is invited for groups
+  // Need to show assigned tasks from groups
 };

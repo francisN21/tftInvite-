@@ -10,25 +10,6 @@ const {
 } = require("../controller/addfriend-controller");
 
 module.exports = (app) => {
-  const success = [
-    {
-      msg: "success",
-      status: 200,
-      data: {
-        active: true,
-      },
-    },
-  ];
-  const errormssg = [
-    {
-      msg: "error",
-      status: 400,
-      data: {
-        active: true,
-      },
-    },
-  ];
-
   app.post("/api/friend/add", addUser);
 
   app.get("/api/friend/load_friends", loadFriends);
