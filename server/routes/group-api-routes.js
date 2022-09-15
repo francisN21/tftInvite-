@@ -1,88 +1,33 @@
 const db = require("../models");
 
 const {
-  newGoal,
-  changeDate,
-  isMet,
-  updateText,
-  placeHolder,
+  createGroup,
+  addParticipants,
+  removeParticipant,
+  isPrivate,
+  isCompleted,
+  deleteGroup,
 } = require("../controller/group-controller");
 
 module.exports = (app) => {
-  app.post("/api/group/create", async (req, res) => {
-    try {
-      console.log(req.body);
+  app.post("/api/group/create-group", createGroup);
 
-      await db.Friend.create({
-        user_id: req.body.user_id,
-        friend_id: req.body.friend_id,
-      });
-      res.json(success);
-    } catch (error) {
-      res.json(error);
-    }
-  });
-  app.get("/api/group/change", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const showfriends = await db.Friend.findAll({
-        where: { user_id: req.body.user_id, isMutual: true },
-      });
-      res.json(showfriends);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.get("/api/group/friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const showfriendreq = await db.Friend.findAll({
-        where: { friend_id: req.body.user_id, isMutual: false },
-      }).then();
-      res.json(showfriendreq);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
-  app.put("/api/group/accept_friend_requests", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const acceptrequest = await db.Friend.update(
-        {
-          isMutual: true,
-        },
-        {
-          where: {
-            user_id: req.body.user_id,
-            friend_id: req.body.friend_id,
-          },
-        }
-      );
-      res.json(acceptrequest);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.post("/api/group/add-participant", addParticipants);
 
-  app.delete("/api/group/unfriend", async (req, res) => {
-    try {
-      console.log("ive been hit");
-      const unfriend = await db.Friend.destroy({
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
-        },
-      });
-      res.json(unfriend);
-      res.json(success);
-    } catch (error) {
-      res.json(errormssg);
-    }
-  });
+  app.delete("/api/group/remove-participant", removeParticipant);
+
+  app.put("/api/group/is-private", isPrivate);
+
+  app.put("/api/group/is-completed", isCompleted);
+
+  app.delete("/api/group/delete-group", deleteGroup);
 
   // will add if needed
-  //   app.update("/api/friend/", (req, res) => {
-  //     console.log("ive been hit");
-  //     res.json(characters);
-  //   });
+  // app.update("/api/friend/", (req, res) => {
+  //   try {
+  //     res.json(success);
+  //   } catch (error) {
+  //     res.json(errormssg);
+  //   }
+  // });
 };

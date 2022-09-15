@@ -92,8 +92,11 @@ module.exports = (app) => {
   });
 
   // will add if needed
-  //   app.update("/api/friend/", (req, res) => {
-  //     console.log("ive been hit");
-  //     res.json(characters);
-  //   });
+  // app.update("/api/friend/", (req, res) => {
+  //   try {
+  //     res.json(success);
+  //   } catch (error) {
+  //     res.json(errormssg);
+  //   }
+  // });
 };
