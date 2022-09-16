@@ -24,79 +24,70 @@ module.exports = {
     async (req, res) => {
       try {
         console.log(req.body);
-
-        await db.Participant.create({
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
+        await db.User.create({
+          username: req.body.username,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          password: req.body.password,
         });
+        //   await db.Users.create({ createUser });
         res.json(success);
-      } catch (error) {
-        res.json(error);
+      } catch (err) {
+        console.log("lol");
+        res.json(err);
       }
     };
   },
 
   isFriend: async (req, res) => {
     try {
-      console.log("ive been hit");
-      const acceptrequest = await db.Participant.update(
-        {
-          hasAccepted: true,
-        },
-        {
-          where: {
-            user_id: req.body.user_id,
-            friend_id: req.body.friend_id,
-          },
-        }
-      );
-      res.json(acceptrequest);
-    } catch (error) {
-      res.json(errormssg);
+      const showusers = await db.User.findAll({});
+      res.json(showusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(err);
     }
   },
 
   showFriendReq: async (req, res) => {
     try {
-      console.log("ive been hit");
-      const unfriend = await db.Participant.destroy({
-        where: {
-          user_id: req.body.user_id,
-          friend_id: req.body.friend_id,
-        },
+      const showusers = await db.User.findAll({
+        where: { user_id: req.body.user_id },
       });
-      res.json(unfriend);
-      res.json(success);
-    } catch (error) {
-      res.json(errormssg);
+      res.json(showusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(err);
     }
   },
 
   deleteUser: async (req, res) => {
     try {
-      console.log("ive been hit");
-      const acceptrequest = await db.Participant.update(
-        {
-          isMutual: true,
-        },
-        {
-          where: {
-            user_id: req.body.user_id,
-            friend_id: req.body.friend_id,
-          },
-        }
-      );
-      res.json(acceptrequest);
-    } catch (error) {
-      res.json(errormssg);
+      const deleteusers = await db.User.destroy({
+        where: { user_id: req.params.user_id },
+      });
+      res.json(deleteusers);
+    } catch (err) {
+      console.log("lol");
+      res.json(error);
     }
   },
 
   updateUser: async (req, res) => {
     try {
-      res.json(success);
-    } catch (error) {
-      res.json(errormssg);
+      const updateuser = await db.User.update(
+        {
+          username: req.body.username,
+        },
+        {
+          where: { user_id: req.body.user_id },
+        }
+      );
+      res.json(updateuser);
+    } catch (err) {
+      console.log("lol");
+      res.json(error);
     }
   },
 
